@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synthetic Data Generator Leaderboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a2c3d;
+            color: #e1e8ed;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .top-bar {
+            background: #0d3d54;
+            border-bottom: 3px solid #2d9a8c;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2d9a8c 0%, #4db8ac 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .site-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #5dd4c6;
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .search-icon, .settings-icon {
+            width: 40px;
+            height: 40px;
+            background: #1a5570;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .search-icon:hover, .settings-icon:hover {
+            background: #256d8a;
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .main-title {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #4db8ac 0%, #5dd4c6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #8b98a5;
+            margin-bottom: 30px;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #5dd4c6;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #8b98a5;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .controls-section {
+            background: #0d3d54;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid #1a5570;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-bar {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 45px 14px 20px;
+            background: #0a2c3d;
+            border: 2px solid #1a5570;
+            border-radius: 10px;
+            color: #e1e8ed;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #4db8ac;
+            box-shadow: 0 0 0 3px rgba(77, 184, 172, 0.1);
+        }
+
+        .search-button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #2d9a8c;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .search-button:hover {
+            background: #26897c;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-dropdown {
+            padding: 12px 20px;
+            background: #0a2c3d;
+            border: 2px solid #1a5570;
+            border-radius: 10px;
+            color: #e1e8ed;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-dropdown:focus {
+            outline: none;
+            border-color: #4db8ac;
+        }
+
+        .weight-slider-container {
+            width: 100%;
+            background: #0a2c3d;
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #1a5570;
+            margin-bottom: 20px;
+        }
+
+        .weight-slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .weight-slider-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #5dd4c6;
+        }
+
+        .weight-value-display {
+            font-size: 1rem;
+            color: #e1e8ed;
+            background: #0d3d54;
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid #2d9a8c;
+        }
+
+        .weight-slider-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .weight-label {
+            font-size: 0.9rem;
+            color: #8b98a5;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .slider-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .weight-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #ef4444 0%, #f59e0b 50%, #10b981 100%);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .weight-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #5dd4c6;
+            cursor: pointer;
+            border: 3px solid #0a2c3d;
+            box-shadow: 0 2px 8px rgba(93, 212, 198, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .weight-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 4px 12px rgba(93, 212, 198, 0.6);
+        }
+
+        .weight-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #5dd4c6;
+            cursor: pointer;
+            border: 3px solid #0a2c3d;
+            box-shadow: 0 2px 8px rgba(93, 212, 198, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .weight-slider::-moz-range-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 4px 12px rgba(93, 212, 198, 0.6);
+        }
+
+        .weight-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .weight-label-item {
+            font-size: 0.85rem;
+            color: #8b98a5;
+        }
+
+        .dataset-tabs {
+            display: flex;
+            background: #0a2c3d;
+            border-radius: 10px;
+            border: 2px solid #1a5570;
+            overflow: hidden;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .dataset-tab {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            color: #8b98a5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-right: 1px solid #1a5570;
+            white-space: nowrap;
+        }
+
+        .dataset-tab:last-child {
+            border-right: none;
+        }
+
+        .dataset-tab:hover {
+            background: rgba(45, 154, 140, 0.1);
+            color: #5dd4c6;
+        }
+
+        .dataset-tab.active {
+            background: #2d9a8c;
+            color: white;
+        }
+
+        .view-toggle {
+            display: flex;
+            background: #0a2c3d;
+            border-radius: 10px;
+            border: 2px solid #1a5570;
+            overflow: hidden;
+        }
+
+        .view-btn {
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            color: #8b98a5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .view-btn.active {
+            background: #2d9a8c;
+            color: white;
+        }
+
+        .leaderboard-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .rank-card {
+            background: linear-gradient(135deg, #0d3d54 0%, #0f4a62 100%);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #1a5570;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 25px;
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rank-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: #2d9a8c;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .rank-card:hover {
+            transform: translateX(10px);
+            border-color: #2d9a8c;
+            box-shadow: 0 8px 30px rgba(45, 154, 140, 0.2);
+        }
+
+        .rank-card:hover::before {
+            opacity: 1;
+        }
+
+        .rank-card.top-1 {
+            background: linear-gradient(135deg, #1a5570 0%, #256d8a 100%);
+            border: 2px solid #ffd700;
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .rank-card.top-2 {
+            background: linear-gradient(135deg, #0f4a62 0%, #1a5570 100%);
+            border: 2px solid #c0c0c0;
+        }
+
+        .rank-card.top-3 {
+            background: linear-gradient(135deg, #0d3d54 0%, #0f4a62 100%);
+            border: 2px solid #cd7f32;
+        }
+
+        .rank-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+        }
+
+        .rank-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #5dd4c6;
+            line-height: 1;
+        }
+
+        .rank-label {
+            font-size: 0.75rem;
+            color: #8b98a5;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .medal {
+            font-size: 2rem;
+            margin-top: 5px;
+        }
+
+        .model-info {
+            flex: 1;
+        }
+
+        .model-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #e1e8ed;
+            margin-bottom: 15px;
+        }
+
+        .metrics-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .metric-box {
+            background: rgba(10, 44, 61, 0.6);
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #1a5570;
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: #8b98a5;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .metric-value-display {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .metric-percentage {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .metric-percentage.good {
+            color: #10b981;
+        }
+
+        .metric-percentage.medium {
+            color: #f59e0b;
+        }
+
+        .metric-percentage.poor {
+            color: #ef4444;
+        }
+
+        .metric-bar {
+            flex: 1;
+            height: 8px;
+            background: #1a5570;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .metric-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .metric-bar-fill.good {
+            background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
+        }
+
+        .metric-bar-fill.medium {
+            background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%);
+        }
+
+        .metric-bar-fill.poor {
+            background: linear-gradient(90deg, #ef4444 0%, #f87171 100%);
+        }
+
+        .action-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            min-width: 120px;
+        }
+
+        .dataset-badge {
+            padding: 8px 16px;
+            background: #2d9a8c;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .details-button {
+            padding: 10px 20px;
+            background: transparent;
+            border: 2px solid #2d9a8c;
+            color: #5dd4c6;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .details-button:hover {
+            background: #2d9a8c;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .date-label {
+            font-size: 0.8rem;
+            color: #8b98a5;
+        }
+
+        @media (max-width: 1024px) {
+            .rank-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .rank-section, .action-section {
+                justify-content: center;
+            }
+
+            .metrics-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2rem;
+            }
+
+            .top-bar {
+                padding: 15px 20px;
+            }
+
+            .controls-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-group {
+                flex-direction: column;
+            }
+
+            .dataset-tabs {
+                flex-direction: column;
+            }
+
+            .dataset-tab {
+                border-right: none;
+                border-bottom: 1px solid #1a5570;
+            }
+
+            .dataset-tab:last-child {
+                border-bottom: none;
+            }
+
+            .weight-slider-content {
+                flex-direction: column;
+            }
+
+            .weight-label {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <div class="top-bar">
+        <div class="logo-section">
+            <div class="logo">TB</div>
+            <div class="site-title">TraceBleed Leaderboard</div>
+        </div>
+        <div class="top-actions">
+            <div class="search-icon">🔍</div>
+            <div class="settings-icon">⚙️</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header-section">
+            <h1 class="main-title">Synthetic Data Generator Rankings</h1>
+            <p class="subtitle">Comprehensive benchmarking of privacy preservation and data fidelity across leading synthetic data generators</p>
+            
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="stat-value" id="totalGenerators">0</div>
+                    <div class="stat-label">Generators</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalDatasets">5</div>
+                    <div class="stat-label">Datasets</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalResults">0</div>
+                    <div class="stat-label">Total Results</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weight Slider Section -->
+        <div class="weight-slider-container">
+            <div class="weight-slider-header">
+                <div class="weight-slider-title">⚖️ Adjust Score Weights</div>
+                <div class="weight-value-display">
+                    Privacy: <span id="privacyWeight">50</span>% | Fidelity: <span id="fidelityWeight">50</span>%
+                </div>
+            </div>
+            <div class="weight-slider-content">
+                <div class="weight-label">Privacy Focus</div>
+                <div class="slider-wrapper">
+                    <input type="range" min="0" max="100" value="50" class="weight-slider" id="weightSlider">
+                    <div class="weight-labels">
+                        <span class="weight-label-item">100% Privacy</span>
+                        <span class="weight-label-item">Balanced</span>
+                        <span class="weight-label-item">100% Fidelity</span>
+                    </div>
+                </div>
+                <div class="weight-label">Fidelity Focus</div>
+            </div>
+        </div>
+
+        <!-- Controls Section -->
+        <div class="controls-section">
+            <div class="search-bar">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search generators or datasets...">
+                <button class="search-button">🔍</button>
+            </div>
+            
+            <div class="filter-group">
+                <select class="filter-dropdown" id="sortFilter">
+                    <option value="weighted">Sort by Weighted Score</option>
+                    <option value="fidelity">Sort by Fidelity</option>
+                    <option value="privacy">Sort by Privacy</option>
+                    <option value="date">Sort by Date</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Dataset Tabs -->
+        <div class="dataset-tabs" id="datasetTabs">
+            <button class="dataset-tab active" data-dataset="all">All Datasets</button>
+            <button class="dataset-tab" data-dataset="CAIDA">CAIDA</button>
+            <button class="dataset-tab" data-dataset="MAWI">MAWI</button>
+            <button class="dataset-tab" data-dataset="DC">DC</button>
+            <button class="dataset-tab" data-dataset="SIM">SIM</button>
+            <button class="dataset-tab" data-dataset="Multi-VA">Multi-VA</button>
+            <button class="dataset-tab" data-dataset="WEB*">WEB*</button>
+        </div>
+
+        <!-- Leaderboard Grid -->
+        <div class="leaderboard-grid" id="leaderboardGrid" style="margin-top: 30px;">
+            <!-- Cards will be generated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Data will be loaded from this script tag -->
+    <script id="generator-data" type="application/json">
+    [
+    {
+        "model": "RTF-Tab",
+        "dataset": "CAIDA",
+        "fidelity": 0.24421903804405792,
+        "privacy": 0.7428571428571429,
+        "venue": "Arxiv",
+        "date": 2023
+    },
+    {
+        "model": "RTF-Time",
+        "dataset": "CAIDA",
+        "fidelity": 0.39541130459639323,
+        "privacy": 0.06896551724137931,
+        "venue": "Arxiv",
+        "date": 2023
+    },
+    {
+        "model": "NetShare",
+        "dataset": "CAIDA",
+        "fidelity": 0.21628455773706146,
+        "privacy": 0.7272727272727273,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetShare (eps=7.0)",
+        "dataset": "CAIDA",
+        "fidelity": 0.3205118821695885,
+        "privacy": 0.5714285714285714,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetShare (eps=40.0)",
+        "dataset": "CAIDA",
+        "fidelity": 0.2651627488685999,
+        "privacy": 0.6511627906976745,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetShare (eps=70.0)",
+        "dataset": "CAIDA",
+        "fidelity": 0.3291286796940974,
+        "privacy": 0.5833333333333334,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetDPSyn (eps=2.0)",
+        "dataset": "CAIDA",
+        "fidelity": 0.42275529113933463,
+        "privacy": 0.4117647058823529,
+        "venue": "IMC",
+        "date": 2024
+    },
+    {
+        "model": "NetDPSyn (eps=10.0)",
+        "dataset": "CAIDA",
+        "fidelity": 0.36849498421878324,
+        "privacy": 0.6666666666666666,
+        "venue": "IMC",
+        "date": 2024
+    },
+    {
+        "model": "NetDPSyn (eps=20.0)",
+        "dataset": "CAIDA",
+        "fidelity": 0.36670600081986277,
+        "privacy": 0.6792452830188679,
+        "venue": "IMC",
+        "date": 2024
+    },
+    {
+        "model": "RTF-Tab",
+        "dataset": "MAWI",
+        "fidelity": 0.1744224598686385,
+        "privacy": 0.7659574468085106,
+        "venue": "Arxiv",
+        "date": 2023
+    },
+    {
+        "model": "RTF-Time",
+        "dataset": "MAWI",
+        "fidelity": 0.38423076841621073,
+        "privacy": 0.3333333333333333,
+        "venue": "Arxiv",
+        "date": 2023
+    },
+    {
+        "model": "NetShare",
+        "dataset": "MAWI",
+        "fidelity": 0.37503452754409744,
+        "privacy": 0.4,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetShare (eps=7.0)",
+        "dataset": "MAWI",
+        "fidelity": 0.341446646922533,
+        "privacy": 0.08,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetShare (eps=40.0)",
+        "dataset": "MAWI",
+        "fidelity": 0.3340142371437633,
+        "privacy": 0.15384615384615385,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetShare (eps=70.0)",
+        "dataset": "MAWI",
+        "fidelity": 0.3310630166484564,
+        "privacy": 0.15384615384615385,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetDPSyn (eps=2.0)",
+        "dataset": "MAWI",
+        "fidelity": 0.35723081513154636,
+        "privacy": 0.375,
+        "venue": "IMC",
+        "date": 2024
+    },
+    {
+        "model": "NetDPSyn (eps=10.0)",
+        "dataset": "MAWI",
+        "fidelity": 0.3506701918052774,
+        "privacy": 0.45161290322580644,
+        "venue": "IMC",
+        "date": 2024
+    },
+    {
+        "model": "NetDPSyn (eps=20.0)",
+        "dataset": "MAWI",
+        "fidelity": 0.1478964000836709,
+        "privacy": 0.5294117647058824,
+        "venue": "IMC",
+        "date": 2024
+    },
+    {
+        "model": "RTF-Tab",
+        "dataset": "DC",
+        "fidelity": 0.10248902104049012,
+        "privacy": 0.46153846153846156,
+        "venue": "Arxiv",
+        "date": 2023
+    },
+    {
+        "model": "RTF-Time",
+        "dataset": "DC",
+        "fidelity": 0.1639014972775778,
+        "privacy": 0.3333333333333333,
+        "venue": "Arxiv",
+        "date": 2023
+    },
+    {
+        "model": "NetShare",
+        "dataset": "DC",
+        "fidelity": 0.1584823882213273,
+        "privacy": 0.5128205128205128,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetShare (eps=7.0)",
+        "dataset": "DC",
+        "fidelity": 0.24053269506633201,
+        "privacy": 0.3389830508474576,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetShare (eps=40.0)",
+        "dataset": "DC",
+        "fidelity": 0.27373368622198285,
+        "privacy": 0.22641509433962265,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetShare (eps=70.0)",
+        "dataset": "DC",
+        "fidelity": 0.2684168663169461,
+        "privacy": 0.3333333333333333,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetDPSyn (eps=2.0)",
+        "dataset": "DC",
+        "fidelity": 0.19210797697296755,
+        "privacy": 0.2857142857142857,
+        "venue": "IMC",
+        "date": 2024
+    },
+    {
+        "model": "NetDPSyn (eps=10.0)",
+        "dataset": "DC",
+        "fidelity": 0.15459861500665623,
+        "privacy": 0.47058823529411764,
+        "venue": "IMC",
+        "date": 2024
+    },
+    {
+        "model": "NetDPSyn (eps=20.0)",
+        "dataset": "DC",
+        "fidelity": 0.15323222372163298,
+        "privacy": 0.47058823529411764,
+        "venue": "IMC",
+        "date": 2024
+    },
+    {
+        "model": "NetDiffusion+",
+        "dataset": "SIM",
+        "fidelity": 0.37840084243176453,
+        "privacy": 0.24,
+        "venue": "SigMetrics",
+        "date": 2024
+    },
+    {
+        "model": "RTF-Tab",
+        "dataset": "SIM",
+        "fidelity": 0.22974424193293505,
+        "privacy": 0.4117647058823529,
+        "venue": "Arxiv",
+        "date": 2023
+    },
+    {
+        "model": "RTF-Time",
+        "dataset": "SIM",
+        "fidelity": 0.1514871158277632,
+        "privacy": 0.5,
+        "venue": "Arxiv",
+        "date": 2023
+    },
+    {
+        "model": "NetShare",
+        "dataset": "SIM",
+        "fidelity": 0.09434624150810918,
+        "privacy": 0.24,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetShare (eps=7.0)",
+        "dataset": "SIM",
+        "fidelity": 0.4021974107259937,
+        "privacy": 0.15384615384615385,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetShare (eps=40.0)",
+        "dataset": "SIM",
+        "fidelity": 0.3946383343670518,
+        "privacy": 0.24,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetShare (eps=70.0)",
+        "dataset": "SIM",
+        "fidelity": 0.3591114850546206,
+        "privacy": 0.24,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetDPSyn (eps=2.0)",
+        "dataset": "SIM",
+        "fidelity": 0.40014380763643304,
+        "privacy": 0.38461538461538464,
+        "venue": "IMC",
+        "date": 2024
+    },
+    {
+        "model": "NetDPSyn (eps=10.0)",
+        "dataset": "SIM",
+        "fidelity": 0.4410569911193631,
+        "privacy": 0.2962962962962963,
+        "venue": "IMC",
+        "date": 2024
+    },
+    {
+        "model": "NetDPSyn (eps=20.0)",
+        "dataset": "SIM",
+        "fidelity": 0.43936302873251853,
+        "privacy": 0.35714285714285715,
+        "venue": "IMC",
+        "date": 2024
+    },
+    {
+        "model": "NetDiffusion+",
+        "dataset": "Multi-VA",
+        "fidelity": 0.5003337195696997,
+        "privacy": 0.14814814814814814,
+        "venue": "SigMetrics",
+        "date": 2024
+    },
+    {
+        "model": "RTF-Tab",
+        "dataset": "Multi-VA",
+        "fidelity": 0.2435972258471319,
+        "privacy": 0.4666666666666667,
+        "venue": "Arxiv",
+        "date": 2023
+    },
+    {
+        "model": "RTF-Time",
+        "dataset": "Multi-VA",
+        "fidelity": 0.22026998765700387,
+        "privacy": 0.4827586206896552,
+        "venue": "Arxiv",
+        "date": 2023
+    },
+    {
+        "model": "NetShare",
+        "dataset": "Multi-VA",
+        "fidelity": 0.1634103480850674,
+        "privacy": 0.41379310344827586,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetShare (eps=7.0)",
+        "dataset": "Multi-VA",
+        "fidelity": 0.368499109573162,
+        "privacy": 0.30303030303030304,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetShare (eps=40.0)",
+        "dataset": "Multi-VA",
+        "fidelity": 0.34905834602063623,
+        "privacy": 0.22857142857142856,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetShare (eps=70.0)",
+        "dataset": "Multi-VA",
+        "fidelity": 0.28848458170948477,
+        "privacy": 0.15789473684210525,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetDPSyn (eps=2.0)",
+        "dataset": "Multi-VA",
+        "fidelity": 0.44061396399682795,
+        "privacy": 0.18181818181818182,
+        "venue": "IMC",
+        "date": 2024
+    },
+    {
+        "model": "NetDPSyn (eps=10.0)",
+        "dataset": "Multi-VA",
+        "fidelity": 0.4368181440260874,
+        "privacy": 0.16666666666666666,
+        "venue": "IMC",
+        "date": 2024
+    },
+    {
+        "model": "NetDPSyn (eps=20.0)",
+        "dataset": "Multi-VA",
+        "fidelity": 0.43335135631385463,
+        "privacy": 0.15384615384615385,
+        "venue": "IMC",
+        "date": 2024
+    },
+    {
+        "model": "RTF-Tab",
+        "dataset": "WEB*",
+        "fidelity": 0.19452318822519973,
+        "privacy": 0.5063291139240507,
+        "venue": "Arxiv",
+        "date": 2023
+    },
+    {
+        "model": "RTF-Time",
+        "dataset": "WEB*",
+        "fidelity": 0.16262440154562455,
+        "privacy": 0.5238095238095238,
+        "venue": "Arxiv",
+        "date": 2023
+    },
+    {
+        "model": "NetShare",
+        "dataset": "WEB*",
+        "fidelity": 0.11567911591871237,
+        "privacy": 0.45714285714285713,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetShare (eps=7.0)",
+        "dataset": "WEB*",
+        "fidelity": 0.3846644619353198,
+        "privacy": 0.4931506849315068,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetShare (eps=40.0)",
+        "dataset": "WEB*",
+        "fidelity": 0.32061668728187315,
+        "privacy": 0.4931506849315068,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetShare (eps=70.0)",
+        "dataset": "WEB*",
+        "fidelity": 0.38522517774632054,
+        "privacy": 0.5,
+        "venue": "SIGCOMM",
+        "date": 2022
+    },
+    {
+        "model": "NetDPSyn (eps=2.0)",
+        "dataset": "WEB*",
+        "fidelity": 0.472961585484778,
+        "privacy": 0.4918032786885246,
+        "venue": "IMC",
+        "date": 2024
+    },
+    {
+        "model": "NetDPSyn (eps=10.0)",
+        "dataset": "WEB*",
+        "fidelity": 0.4317291123668998,
+        "privacy": 0.5217391304347826,
+        "venue": "IMC",
+        "date": 2024
+    },
+    {
+        "model": "NetDPSyn (eps=20.0)",
+        "dataset": "WEB*",
+        "fidelity": 0.4412250224265704,
+        "privacy": 0.5,
+        "venue": "IMC",
+        "date": 2024
+    }
+]
+    </script>
+
+    <script>
+        let generatorData = [];
+        let currentData = [];
+        let currentDataset = 'all';
+        let privacyWeight = 0.5; // Weight for privacy (x in the formula)
+
+        // Load data from embedded script tag or try to fetch from file
+        async function loadData() {
+            try {
+                // First, try to load from embedded script tag
+                const dataScript = document.getElementById('generator-data');
+                if (dataScript && dataScript.textContent.trim() !== '[]') {
+                    generatorData = JSON.parse(dataScript.textContent);
+                    console.log('Loaded data from embedded script tag');
+                } else {
+                    // Try to fetch from JSON file (requires local server)
+                    const response = await fetch('data/generator_data.json');
+                    if (!response.ok) {
+                        throw new Error('Failed to load data');
+                    }
+                    generatorData = await response.json();
+                    console.log('Loaded data from JSON file');
+                }
+                
+                // Calculate weighted scores for all data
+                generatorData = generatorData.map(gen => ({
+                    ...gen,
+                    weightedScore: calculateWeightedScore(gen.privacy, gen.fidelity, privacyWeight)
+                }));
+                
+                currentData = [...generatorData];
+                sortByWeightedScore();
+                renderLeaderboard(currentData);
+                updateStats();
+            } catch (error) {
+                console.error('Error loading data:', error);
+                // Show error message to user
+                document.getElementById('leaderboardGrid').innerHTML = `
+                    <div style="text-align: center; padding: 60px; color: #ef4444;">
+                        <h3>⚠️ Error Loading Data</h3>
+                        <p>Could not load generator data.</p>
+                        <div style="margin-top: 20px; padding: 20px; background: rgba(239, 68, 68, 0.1); border-radius: 10px; text-align: left; max-width: 600px; margin: 20px auto;">
+                            <p style="font-weight: 600; margin-bottom: 10px;">Solutions:</p>
+                            <ol style="margin-left: 20px; line-height: 1.8;">
+                                <li>Run: <code style="background: #1a5570; padding: 2px 8px; border-radius: 4px;">python generate_data_embedded.py</code></li>
+                                <li>Or start a local server:
+                                    <br><code style="background: #1a5570; padding: 2px 8px; border-radius: 4px;">python -m http.server 8000</code>
+                                    <br>Then open: <code style="background: #1a5570; padding: 2px 8px; border-radius: 4px;">http://localhost:8000/synthpress-leaderboard-v2.html</code>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Calculate weighted score: x * privacy + (1-x) * fidelity
+        // Lower scores are better (both metrics represent error/distance)
+        function calculateWeightedScore(privacy, fidelity, weight) {
+            return weight * privacy + (1 - weight) * fidelity;
+        }
+
+        // Update weighted scores for all current data
+        function updateWeightedScores() {
+            currentData = currentData.map(gen => ({
+                ...gen,
+                weightedScore: calculateWeightedScore(gen.privacy, gen.fidelity, privacyWeight)
+            }));
+        }
+
+        // Sort by weighted score (ascending - lower is better)
+        function sortByWeightedScore() {
+            currentData.sort((a, b) => a.weightedScore - b.weightedScore);
+        }
+
+        // Calculate statistics
+        function updateStats() {
+            const uniqueGenerators = new Set(currentData.map(g => g.model));
+            const uniqueDatasets = new Set(currentData.map(g => g.dataset));
+            
+            document.getElementById('totalGenerators').textContent = uniqueGenerators.size;
+            document.getElementById('totalDatasets').textContent = uniqueDatasets.size;
+            document.getElementById('totalResults').textContent = currentData.length;
+        }
+
+        function getMetricClass(value) {
+            if (value < 0.2) return 'good';
+            if (value < 0.4) return 'medium';
+            return 'poor';
+        }
+
+        function getPrivacyMetricClass(value, dataset) {
+            threshold = 0.5;
+            if (dataset === "CAIDA") threshold = 0.53658537;
+            if (dataset === "MAWI") threshold = 0.43548387;
+            if (dataset === "DC") threshold = 0.293159;
+            if (dataset === "SIM") threshold = 0.4444444444444445;
+            if (dataset === "Multi-VA") threshold = 0.375;
+            if (dataset === "WEB*") threshold = 0.4424778761061947;
+
+            if (value < threshold) return 'good';
+            if (value < 1.15 * threshold) return 'medium';
+            return 'poor';
+        }
+
+        function getWeightedScoreClass(value) {
+            if (value < 0.25) return 'good';
+            if (value < 0.45) return 'medium';
+            return 'poor';
+        }
+
+        function getMedal(rank) {
+            if (rank === 1) return '🥇';
+            if (rank === 2) return '🥈';
+            if (rank === 3) return '🥉';
+            return '';
+        }
+
+        function getRankClass(rank) {
+            if (rank === 1) return 'top-1';
+            if (rank === 2) return 'top-2';
+            if (rank === 3) return 'top-3';
+            return '';
+        }
+
+        function renderLeaderboard(data) {
+            const grid = document.getElementById('leaderboardGrid');
+            
+            if (data.length === 0) {
+                grid.innerHTML = `
+                    <div style="text-align: center; padding: 60px; color: #8b98a5;">
+                        <h3>No results found</h3>
+                        <p>Try adjusting your search or filters</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = data.map((gen, index) => {
+                const rank = index + 1;
+                const medal = getMedal(rank);
+                const rankClass = getRankClass(rank);
+
+                return `
+                    <div class="rank-card ${rankClass}">
+                        <div class="rank-section">
+                            <div class="rank-number">#${rank}</div>
+                            <div class="rank-label">Rank</div>
+                            ${medal ? `<div class="medal">${medal}</div>` : ''}
+                        </div>
+
+                        <div class="model-info">
+                            <div class="model-name">${gen.model} <span style="color: #8b98a5; font-size: 0.9rem;">on ${gen.dataset}</span></div>
+                            <div class="metrics-container">
+                                <div class="metric-box">
+                                    <div class="metric-label">Weighted Score</div>
+                                    <div class="metric-value-display">
+                                        <div class="metric-percentage ${getWeightedScoreClass(gen.weightedScore)}">${gen.weightedScore.toFixed(3)}</div>
+                                        <div class="metric-bar">
+                                            <div class="metric-bar-fill ${getWeightedScoreClass(gen.weightedScore)}" style="width: ${gen.weightedScore * 100}%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="metric-box">
+                                    <div class="metric-label">Fidelity Score</div>
+                                    <div class="metric-value-display">
+                                        <div class="metric-percentage ${getMetricClass(gen.fidelity)}">${gen.fidelity.toFixed(3)}</div>
+                                        <div class="metric-bar">
+                                            <div class="metric-bar-fill ${getMetricClass(gen.fidelity)}" style="width: ${gen.fidelity * 100}%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="metric-box">
+                                    <div class="metric-label">Privacy Score</div>
+                                    <div class="metric-value-display">
+                                        <div class="metric-percentage ${getPrivacyMetricClass(gen.privacy, gen.dataset)}">${gen.privacy.toFixed(3)}</div>
+                                        <div class="metric-bar">
+                                            <div class="metric-bar-fill ${getPrivacyMetricClass(gen.privacy, gen.dataset)}" style="width: ${gen.privacy * 100}%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="action-section">
+                            <div class="dataset-badge">${gen.dataset}</div>
+                            <div class="date-label">${gen.venue}</div>
+                            <div class="date-label">${gen.date}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            updateStats();
+        }
+
+        // Weight slider functionality
+        const weightSlider = document.getElementById('weightSlider');
+        const privacyWeightDisplay = document.getElementById('privacyWeight');
+        const fidelityWeightDisplay = document.getElementById('fidelityWeight');
+
+        weightSlider.addEventListener('input', (e) => {
+            const sliderValue = parseInt(e.target.value);
+            privacyWeight = 1 - sliderValue / 100;
+            
+            // Update display
+            privacyWeightDisplay.textContent = sliderValue;
+            fidelityWeightDisplay.textContent = 100 - sliderValue;
+            
+            // Recalculate weighted scores
+            updateWeightedScores();
+            sortByWeightedScore();
+            renderLeaderboard(currentData);
+        });
+
+        // Dataset tab functionality
+        document.getElementById('datasetTabs').addEventListener('click', (e) => {
+            if (e.target.classList.contains('dataset-tab')) {
+                // Update active tab
+                document.querySelectorAll('.dataset-tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                e.target.classList.add('active');
+
+                // Filter data
+                const dataset = e.target.dataset.dataset;
+                currentDataset = dataset;
+                
+                if (dataset === 'all') {
+                    currentData = [...generatorData];
+                } else {
+                    currentData = generatorData.filter(gen => gen.dataset === dataset);
+                }
+                
+                // Apply search filter if active
+                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+                if (searchTerm) {
+                    currentData = currentData.filter(gen => 
+                        gen.model.toLowerCase().includes(searchTerm) ||
+                        gen.dataset.toLowerCase().includes(searchTerm)
+                    );
+                }
+                
+                // Update weighted scores and sort
+                updateWeightedScores();
+                sortByWeightedScore();
+                renderLeaderboard(currentData);
+            }
+        });
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            // Start with dataset-filtered data
+            let filteredData = currentDataset === 'all' 
+                ? [...generatorData]
+                : generatorData.filter(gen => gen.dataset === currentDataset);
+            
+            // Apply search filter
+            currentData = filteredData.filter(gen => 
+                gen.model.toLowerCase().includes(searchTerm) ||
+                gen.dataset.toLowerCase().includes(searchTerm)
+            );
+            
+            // Update weighted scores and sort
+            updateWeightedScores();
+            sortByWeightedScore();
+            renderLeaderboard(currentData);
+        });
+
+        // Sort functionality
+        document.getElementById('sortFilter').addEventListener('change', (e) => {
+            const sortBy = e.target.value;
+            
+            currentData = [...currentData].sort((a, b) => {
+                if (sortBy === 'weighted') {
+                    return a.weightedScore - b.weightedScore;
+                } else if (sortBy === 'fidelity') {
+                    return a.fidelity - b.fidelity;
+                } else if (sortBy === 'privacy') {
+                    return a.privacy - b.privacy;
+                } else if (sortBy === 'date') {
+                    return new Date(b.date) - new Date(a.date);
+                }
+                return 0;
+            });
+            
+            renderLeaderboard(currentData);
+        });
+
+        // Load data when page loads
+        loadData();
+    </script>
+</body>
+</html>
