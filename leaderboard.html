@@ -681,9 +681,18 @@
             </div>
         </div> -->
 
+        <!-- - We define a novel real-world privacy metric that captures harms people actually care about. Rather than asking if a flow or packet was included in training, our formulation asks whether an individual’s traffic contributed to training a model, whether that inclusion can reveal sensitive information such as their location, behavior, or organizational affiliation etc.
+
+        - TraceBleed is not a naïve membership inference attack (MIA) — it's a novel attack-grounded metric tailored to network traces that exploits behavioral fingerprints across flows, rather than statistical artifacts.
+
+        - We do not simply train attacker and generator on the same dataset. Our leader board contains evaluations across datasets collected from diverse vantage points to ensure that the vulnerability is true privacy leakage not distribution-specific anomalies.
+
+        - We close the loop with a principled, generator-agnostic mitigation, showing the leakage we measure is both real and fixable. -->
+
+        <!-- Why Trust Section -->
         <div style="
             max-width: 900px;
-            margin: 28px auto 10px auto;
+            margin: 0 auto 10px auto;
             text-align: left;
         ">
             <!-- Header -->
@@ -729,7 +738,7 @@
                     <div>
                         <div style="font-size: 0.75rem; font-weight: 700; color: #2d9a8c; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Source-Level Privacy</div>
                         <p style="font-size: 0.88rem; color: #c8d4db; line-height: 1.7; margin: 0;">
-                            Prior work has largely evaluated privacy at the packet or flow level. We define privacy at the <strong style="color: #e1e8ed;">source level</strong> — the granularity at which real harm manifests — introducing a metric that captures user participation rather than record similarity.
+                            We define a novel real-world privacy metric that captures harms people actually care about. Rather than asking if a flow or packet was included in training, our formulation asks whether an individual's traffic contributed to training a model, whether that inclusion can reveal sensitive information such as their location, behavior, or organizational affiliation etc.
                         </p>
                     </div>
                 </div>
@@ -746,9 +755,9 @@
                 ">
                     <span style="font-size: 1.3rem; flex-shrink: 0; margin-top: 1px;">⚔️</span>
                     <div>
-                        <div style="font-size: 0.75rem; font-weight: 700; color: #2d9a8c; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Attack-Driven Formulation</div>
+                        <div style="font-size: 0.75rem; font-weight: 700; color: #2d9a8c; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Attack-Grounded Metric</div>
                         <p style="font-size: 0.88rem; color: #c8d4db; line-height: 1.7; margin: 0;">
-                            TraceBleed is not a naïve membership inference probe — it's a <strong style="color: #e1e8ed;">purpose-built black-box attack</strong> that exploits behavioral fingerprints across flows, ensuring measured leakage reflects realistic adversarial capability rather than statistical artifacts.
+                            TraceBleed is not a naïve membership inference attack (MIA) — it's a novel attack-grounded metric tailored to network traces that exploits behavioral fingerprints across flows, rather than statistical artifacts.
                         </p>
                     </div>
                 </div>
@@ -765,9 +774,9 @@
                 ">
                     <span style="font-size: 1.3rem; flex-shrink: 0; margin-top: 1px;">🌐</span>
                     <div>
-                        <div style="font-size: 0.75rem; font-weight: 700; color: #2d9a8c; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Heterogeneous Vantage Points</div>
+                        <div style="font-size: 0.75rem; font-weight: 700; color: #2d9a8c; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Cross-Vantage Evaluation</div>
                         <p style="font-size: 0.88rem; color: #c8d4db; line-height: 1.7; margin: 0;">
-                            Evaluated across datasets from diverse collection environments, the risks we expose are <strong style="color: #e1e8ed;">persistent structural vulnerabilities</strong> — not distribution-specific anomalies that simpler attacks would fail to surface.
+                            We do not simply train attacker and generator on the same dataset. Our leader board contains evaluations across datasets collected from diverse vantage points to ensure that the vulnerability is true privacy leakage not distribution-specific anomalies.
                         </p>
                     </div>
                 </div>
@@ -786,13 +795,12 @@
                     <div>
                         <div style="font-size: 0.75rem; font-weight: 700; color: #10b981; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Actionable — Good News</div>
                         <p style="font-size: 0.88rem; color: #c8d4db; line-height: 1.7; margin: 0;">
-                            We close the loop with a <strong style="color: #e1e8ed;">principled, generator-agnostic mitigation</strong>, showing the leakage we measure is both real and fixable — and that our metric can guide the design of more privacy-preserving synthetic traffic systems.
+                            We close the loop with a principled, generator-agnostic mitigation, showing the leakage we measure is both real and fixable.
                         </p>
                     </div>
                 </div>
             </div>
         </div>
-
             
             <div class="stats-bar">
                 <div class="stat-item">
