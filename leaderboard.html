@@ -857,15 +857,9 @@
             </div>
         </div>
 
-        <!-- Dataset Tabs -->
+        <!-- Dataset Tabs (populated dynamically) -->
         <div class="dataset-tabs" id="datasetTabs">
             <button class="dataset-tab active" data-dataset="all">All Datasets</button>
-            <button class="dataset-tab" data-dataset="CAIDA">CAIDA</button>
-            <button class="dataset-tab" data-dataset="MAWI">MAWI</button>
-            <button class="dataset-tab" data-dataset="DC">DC</button>
-            <button class="dataset-tab" data-dataset="SIM">SIM</button>
-            <button class="dataset-tab" data-dataset="Multi-VA">Multi-VA</button>
-            <button class="dataset-tab" data-dataset="WEB*">WEB*</button>
         </div>
 
         <!-- Leaderboard Grid -->
@@ -874,514 +868,104 @@
         </div>
     </div>
 
-    <!-- Data will be loaded from this script tag -->
-    <script id="generator-data" type="application/json">
-    [
-    {
-        "model": "RTF-Tab",
-        "dataset": "CAIDA",
-        "fidelity": 0.24421903804405792,
-        "privacy": 0.7428571428571429,
-        "venue": "Arxiv",
-        "date": 2023
-    },
-    {
-        "model": "RTF-Time",
-        "dataset": "CAIDA",
-        "fidelity": 0.39541130459639323,
-        "privacy": 0.06896551724137931,
-        "venue": "Arxiv",
-        "date": 2023
-    },
-    {
-        "model": "NetShare",
-        "dataset": "CAIDA",
-        "fidelity": 0.21628455773706146,
-        "privacy": 0.7272727272727273,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetShare (eps=7.0)",
-        "dataset": "CAIDA",
-        "fidelity": 0.3205118821695885,
-        "privacy": 0.5714285714285714,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetShare (eps=40.0)",
-        "dataset": "CAIDA",
-        "fidelity": 0.2651627488685999,
-        "privacy": 0.6511627906976745,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetShare (eps=70.0)",
-        "dataset": "CAIDA",
-        "fidelity": 0.3291286796940974,
-        "privacy": 0.5833333333333334,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetDPSyn (eps=2.0)",
-        "dataset": "CAIDA",
-        "fidelity": 0.42275529113933463,
-        "privacy": 0.4117647058823529,
-        "venue": "IMC",
-        "date": 2024
-    },
-    {
-        "model": "NetDPSyn (eps=10.0)",
-        "dataset": "CAIDA",
-        "fidelity": 0.36849498421878324,
-        "privacy": 0.6666666666666666,
-        "venue": "IMC",
-        "date": 2024
-    },
-    {
-        "model": "NetDPSyn (eps=20.0)",
-        "dataset": "CAIDA",
-        "fidelity": 0.36670600081986277,
-        "privacy": 0.6792452830188679,
-        "venue": "IMC",
-        "date": 2024
-    },
-    {
-        "model": "RTF-Tab",
-        "dataset": "MAWI",
-        "fidelity": 0.1744224598686385,
-        "privacy": 0.7659574468085106,
-        "venue": "Arxiv",
-        "date": 2023
-    },
-    {
-        "model": "RTF-Time",
-        "dataset": "MAWI",
-        "fidelity": 0.38423076841621073,
-        "privacy": 0.3333333333333333,
-        "venue": "Arxiv",
-        "date": 2023
-    },
-    {
-        "model": "NetShare",
-        "dataset": "MAWI",
-        "fidelity": 0.37503452754409744,
-        "privacy": 0.4,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetShare (eps=7.0)",
-        "dataset": "MAWI",
-        "fidelity": 0.341446646922533,
-        "privacy": 0.08,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetShare (eps=40.0)",
-        "dataset": "MAWI",
-        "fidelity": 0.3340142371437633,
-        "privacy": 0.15384615384615385,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetShare (eps=70.0)",
-        "dataset": "MAWI",
-        "fidelity": 0.3310630166484564,
-        "privacy": 0.15384615384615385,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetDPSyn (eps=2.0)",
-        "dataset": "MAWI",
-        "fidelity": 0.35723081513154636,
-        "privacy": 0.375,
-        "venue": "IMC",
-        "date": 2024
-    },
-    {
-        "model": "NetDPSyn (eps=10.0)",
-        "dataset": "MAWI",
-        "fidelity": 0.3506701918052774,
-        "privacy": 0.45161290322580644,
-        "venue": "IMC",
-        "date": 2024
-    },
-    {
-        "model": "NetDPSyn (eps=20.0)",
-        "dataset": "MAWI",
-        "fidelity": 0.1478964000836709,
-        "privacy": 0.5294117647058824,
-        "venue": "IMC",
-        "date": 2024
-    },
-    {
-        "model": "RTF-Tab",
-        "dataset": "DC",
-        "fidelity": 0.10248902104049012,
-        "privacy": 0.46153846153846156,
-        "venue": "Arxiv",
-        "date": 2023
-    },
-    {
-        "model": "RTF-Time",
-        "dataset": "DC",
-        "fidelity": 0.1639014972775778,
-        "privacy": 0.3333333333333333,
-        "venue": "Arxiv",
-        "date": 2023
-    },
-    {
-        "model": "NetShare",
-        "dataset": "DC",
-        "fidelity": 0.1584823882213273,
-        "privacy": 0.5128205128205128,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetShare (eps=7.0)",
-        "dataset": "DC",
-        "fidelity": 0.24053269506633201,
-        "privacy": 0.3389830508474576,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetShare (eps=40.0)",
-        "dataset": "DC",
-        "fidelity": 0.27373368622198285,
-        "privacy": 0.22641509433962265,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetShare (eps=70.0)",
-        "dataset": "DC",
-        "fidelity": 0.2684168663169461,
-        "privacy": 0.3333333333333333,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetDPSyn (eps=2.0)",
-        "dataset": "DC",
-        "fidelity": 0.19210797697296755,
-        "privacy": 0.2857142857142857,
-        "venue": "IMC",
-        "date": 2024
-    },
-    {
-        "model": "NetDPSyn (eps=10.0)",
-        "dataset": "DC",
-        "fidelity": 0.15459861500665623,
-        "privacy": 0.47058823529411764,
-        "venue": "IMC",
-        "date": 2024
-    },
-    {
-        "model": "NetDPSyn (eps=20.0)",
-        "dataset": "DC",
-        "fidelity": 0.15323222372163298,
-        "privacy": 0.47058823529411764,
-        "venue": "IMC",
-        "date": 2024
-    },
-    {
-        "model": "NetDiffusion+",
-        "dataset": "SIM",
-        "fidelity": 0.37840084243176453,
-        "privacy": 0.24,
-        "venue": "SigMetrics",
-        "date": 2024
-    },
-    {
-        "model": "RTF-Tab",
-        "dataset": "SIM",
-        "fidelity": 0.22974424193293505,
-        "privacy": 0.4117647058823529,
-        "venue": "Arxiv",
-        "date": 2023
-    },
-    {
-        "model": "RTF-Time",
-        "dataset": "SIM",
-        "fidelity": 0.1514871158277632,
-        "privacy": 0.5,
-        "venue": "Arxiv",
-        "date": 2023
-    },
-    {
-        "model": "NetShare",
-        "dataset": "SIM",
-        "fidelity": 0.09434624150810918,
-        "privacy": 0.24,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetShare (eps=7.0)",
-        "dataset": "SIM",
-        "fidelity": 0.4021974107259937,
-        "privacy": 0.15384615384615385,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetShare (eps=40.0)",
-        "dataset": "SIM",
-        "fidelity": 0.3946383343670518,
-        "privacy": 0.24,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetShare (eps=70.0)",
-        "dataset": "SIM",
-        "fidelity": 0.3591114850546206,
-        "privacy": 0.24,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetDPSyn (eps=2.0)",
-        "dataset": "SIM",
-        "fidelity": 0.40014380763643304,
-        "privacy": 0.38461538461538464,
-        "venue": "IMC",
-        "date": 2024
-    },
-    {
-        "model": "NetDPSyn (eps=10.0)",
-        "dataset": "SIM",
-        "fidelity": 0.4410569911193631,
-        "privacy": 0.2962962962962963,
-        "venue": "IMC",
-        "date": 2024
-    },
-    {
-        "model": "NetDPSyn (eps=20.0)",
-        "dataset": "SIM",
-        "fidelity": 0.43936302873251853,
-        "privacy": 0.35714285714285715,
-        "venue": "IMC",
-        "date": 2024
-    },
-    {
-        "model": "NetDiffusion+",
-        "dataset": "Multi-VA",
-        "fidelity": 0.5003337195696997,
-        "privacy": 0.14814814814814814,
-        "venue": "SigMetrics",
-        "date": 2024
-    },
-    {
-        "model": "RTF-Tab",
-        "dataset": "Multi-VA",
-        "fidelity": 0.2435972258471319,
-        "privacy": 0.4666666666666667,
-        "venue": "Arxiv",
-        "date": 2023
-    },
-    {
-        "model": "RTF-Time",
-        "dataset": "Multi-VA",
-        "fidelity": 0.22026998765700387,
-        "privacy": 0.4827586206896552,
-        "venue": "Arxiv",
-        "date": 2023
-    },
-    {
-        "model": "NetShare",
-        "dataset": "Multi-VA",
-        "fidelity": 0.1634103480850674,
-        "privacy": 0.41379310344827586,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetShare (eps=7.0)",
-        "dataset": "Multi-VA",
-        "fidelity": 0.368499109573162,
-        "privacy": 0.30303030303030304,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetShare (eps=40.0)",
-        "dataset": "Multi-VA",
-        "fidelity": 0.34905834602063623,
-        "privacy": 0.22857142857142856,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetShare (eps=70.0)",
-        "dataset": "Multi-VA",
-        "fidelity": 0.28848458170948477,
-        "privacy": 0.15789473684210525,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetDPSyn (eps=2.0)",
-        "dataset": "Multi-VA",
-        "fidelity": 0.44061396399682795,
-        "privacy": 0.18181818181818182,
-        "venue": "IMC",
-        "date": 2024
-    },
-    {
-        "model": "NetDPSyn (eps=10.0)",
-        "dataset": "Multi-VA",
-        "fidelity": 0.4368181440260874,
-        "privacy": 0.16666666666666666,
-        "venue": "IMC",
-        "date": 2024
-    },
-    {
-        "model": "NetDPSyn (eps=20.0)",
-        "dataset": "Multi-VA",
-        "fidelity": 0.43335135631385463,
-        "privacy": 0.15384615384615385,
-        "venue": "IMC",
-        "date": 2024
-    },
-    {
-        "model": "RTF-Tab",
-        "dataset": "WEB*",
-        "fidelity": 0.19452318822519973,
-        "privacy": 0.5063291139240507,
-        "venue": "Arxiv",
-        "date": 2023
-    },
-    {
-        "model": "RTF-Time",
-        "dataset": "WEB*",
-        "fidelity": 0.16262440154562455,
-        "privacy": 0.5238095238095238,
-        "venue": "Arxiv",
-        "date": 2023
-    },
-    {
-        "model": "NetShare",
-        "dataset": "WEB*",
-        "fidelity": 0.11567911591871237,
-        "privacy": 0.45714285714285713,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetShare (eps=7.0)",
-        "dataset": "WEB*",
-        "fidelity": 0.3846644619353198,
-        "privacy": 0.4931506849315068,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetShare (eps=40.0)",
-        "dataset": "WEB*",
-        "fidelity": 0.32061668728187315,
-        "privacy": 0.4931506849315068,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetShare (eps=70.0)",
-        "dataset": "WEB*",
-        "fidelity": 0.38522517774632054,
-        "privacy": 0.5,
-        "venue": "SIGCOMM",
-        "date": 2022
-    },
-    {
-        "model": "NetDPSyn (eps=2.0)",
-        "dataset": "WEB*",
-        "fidelity": 0.472961585484778,
-        "privacy": 0.4918032786885246,
-        "venue": "IMC",
-        "date": 2024
-    },
-    {
-        "model": "NetDPSyn (eps=10.0)",
-        "dataset": "WEB*",
-        "fidelity": 0.4317291123668998,
-        "privacy": 0.5217391304347826,
-        "venue": "IMC",
-        "date": 2024
-    },
-    {
-        "model": "NetDPSyn (eps=20.0)",
-        "dataset": "WEB*",
-        "fidelity": 0.4412250224265704,
-        "privacy": 0.5,
-        "venue": "IMC",
-        "date": 2024
-    }
-]
-    </script>
-
     <script>
         let generatorData = [];
         let currentData = [];
         let currentDataset = 'all';
         let privacyWeight = 0.5; // Weight for privacy (x in the formula)
 
-        // Load data from embedded script tag or try to fetch from file
+        const MODEL_DISPLAY_NAMES = {
+            'netdiffusion':  'NetDiffusion+',
+            'rtf_tab':       'RTF-Tab',
+            'rtf_time':      'RTF-Time',
+            'netshare':      'NetShare',
+            'netdpsyn_2':    'NetDPSyn (eps=2.0)',
+            'netdpsyn_10':   'NetDPSyn (eps=10.0)',
+            'netdpsyn_20':   'NetDPSyn (eps=20.0)',
+            'netshare_7':    'NetShare (eps=7.0)',
+            'netshare_40':   'NetShare (eps=40.0)',
+            'netshare_70':   'NetShare (eps=70.0)',
+        };
+
+        const MODEL_META = {
+            'netdiffusion':  { venue: 'SigMetrics', date: 2024 },
+            'rtf_tab':       { venue: 'Arxiv',       date: 2023 },
+            'rtf_time':      { venue: 'Arxiv',       date: 2023 },
+            'netshare':      { venue: 'SIGCOMM',     date: 2022 },
+            'netdpsyn_2':    { venue: 'IMC',         date: 2024 },
+            'netdpsyn_10':   { venue: 'IMC',         date: 2024 },
+            'netdpsyn_20':   { venue: 'IMC',         date: 2024 },
+            'netshare_7':    { venue: 'SIGCOMM',     date: 2022 },
+            'netshare_40':   { venue: 'SIGCOMM',     date: 2022 },
+            'netshare_70':   { venue: 'SIGCOMM',     date: 2022 },
+        };
+
+        // JSON files to load — add new filenames here as new datasets are added
+        const JSON_FILES = ['caida', 'mawi', 'dc', 'wfp', 'bfp'];
+
+        const PRIVACY_THRESHOLDS = {};
+
         async function loadData() {
             try {
-                // First, try to load from embedded script tag
-                const dataScript = document.getElementById('generator-data');
-                if (dataScript && dataScript.textContent.trim() !== '[]') {
-                    generatorData = JSON.parse(dataScript.textContent);
-                    console.log('Loaded data from embedded script tag');
-                } else {
-                    // Try to fetch from JSON file (requires local server)
-                    const response = await fetch('data/generator_data.json');
-                    if (!response.ok) {
-                        throw new Error('Failed to load data');
+                const responses = await Promise.all(
+                    JSON_FILES.map(name => fetch(`fidelity_privacy_${name}.json`))
+                );
+
+                const allData = [];
+                for (const response of responses) {
+                    if (!response.ok) continue;
+                    const json = await response.json();
+                    for (const [dataset, models] of Object.entries(json)) {
+                        // Extract threshold from the "random" sentinel entry
+                        if (models.random?.privacy != null) {
+                            PRIVACY_THRESHOLDS[dataset] = models.random.privacy;
+                        }
+                        for (const [modelKey, metrics] of Object.entries(models)) {
+                            if (modelKey === 'random') continue;
+                            const meta = MODEL_META[modelKey] || { venue: 'Unknown', date: 0 };
+                            allData.push({
+                                model:    MODEL_DISPLAY_NAMES[modelKey] || modelKey,
+                                dataset,
+                                fidelity: metrics.fidelity,
+                                privacy:  metrics.privacy,
+                                venue:    meta.venue,
+                                date:     meta.date,
+                            });
+                        }
                     }
-                    generatorData = await response.json();
-                    console.log('Loaded data from JSON file');
                 }
-                
-                // Calculate weighted scores for all data
-                generatorData = generatorData.map(gen => ({
+
+                generatorData = allData.map(gen => ({
                     ...gen,
                     weightedScore: calculateWeightedScore(gen.privacy, gen.fidelity, privacyWeight)
                 }));
-                
+
                 currentData = [...generatorData];
                 sortByWeightedScore();
+                buildDatasetTabs();
                 renderLeaderboard(currentData);
                 updateStats();
             } catch (error) {
                 console.error('Error loading data:', error);
-                // Show error message to user
                 document.getElementById('leaderboardGrid').innerHTML = `
                     <div style="text-align: center; padding: 60px; color: #ef4444;">
                         <h3>⚠️ Error Loading Data</h3>
-                        <p>Could not load generator data.</p>
+                        <p>Could not load generator data. Start a local server and open this page via http://localhost:8000/leaderboard.html</p>
                         <div style="margin-top: 20px; padding: 20px; background: rgba(239, 68, 68, 0.1); border-radius: 10px; text-align: left; max-width: 600px; margin: 20px auto;">
-                            <p style="font-weight: 600; margin-bottom: 10px;">Solutions:</p>
-                            <ol style="margin-left: 20px; line-height: 1.8;">
-                                <li>Run: <code style="background: #1a5570; padding: 2px 8px; border-radius: 4px;">python generate_data_embedded.py</code></li>
-                                <li>Or start a local server:
-                                    <br><code style="background: #1a5570; padding: 2px 8px; border-radius: 4px;">python -m http.server 8000</code>
-                                    <br>Then open: <code style="background: #1a5570; padding: 2px 8px; border-radius: 4px;">http://localhost:8000/synthpress-leaderboard-v2.html</code>
-                                </li>
-                            </ol>
+                            <code style="background: #1a5570; padding: 2px 8px; border-radius: 4px;">python -m http.server 8000</code>
                         </div>
                     </div>
                 `;
             }
+        }
+
+        function buildDatasetTabs() {
+            const datasets = [...new Set(generatorData.map(g => g.dataset))].sort();
+            const container = document.getElementById('datasetTabs');
+            container.innerHTML = '<button class="dataset-tab active" data-dataset="all">All Datasets</button>';
+            datasets.forEach(ds => {
+                container.innerHTML += `<button class="dataset-tab" data-dataset="${ds}">${ds}</button>`;
+            });
         }
 
         // Calculate weighted score: x * privacy + (1-x) * fidelity
@@ -1420,13 +1004,7 @@
         }
 
         function getPrivacyMetricClass(value, dataset) {
-            threshold = 0.5;
-            if (dataset === "CAIDA") threshold = 0.53658537;
-            if (dataset === "MAWI") threshold = 0.43548387;
-            if (dataset === "DC") threshold = 0.293159;
-            if (dataset === "SIM") threshold = 0.4444444444444445;
-            if (dataset === "Multi-VA") threshold = 0.375;
-            if (dataset === "WEB*") threshold = 0.4424778761061947;
+            const threshold = PRIVACY_THRESHOLDS[dataset] ?? 0.5;
 
             if (value < threshold) return 'good';
             if (value < 1.15 * threshold) return 'medium';
